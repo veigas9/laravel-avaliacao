@@ -1,0 +1,23 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+      args:
+        UID: 1000
+        GID: 1000
+
+    container_name: laravel_app
+
+    # Usuário alinhado com o WSL (andre)
+    user: "1000:1000"
+
+    volumes:
+      - ./src:/var/www
+
+    working_dir: /var/www
+
+    ports:
+      - "8000:8000"
+
+    command: php artisan serve --host=0.0.0.0 --port=8000

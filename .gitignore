@@ -1,0 +1,13 @@
+# Workspace/local artifacts
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Editor/project-local settings
+.idea/
+.vscode/
+
+# Local env files at repo root (if created)
+.env
+.env.*
