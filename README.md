@@ -78,6 +78,39 @@ curl "http://localhost:8000/api/produtos-precos?per_page=10&page=1"
 - Atualiza apenas quando houver diferenca de dados.
 - Remove da tabela de destino o que nao existe mais na respectiva View.
 
+## Testes automatizados
+
+Os testes cobrem o minimo esperado dos fluxos principais da API.
+
+### Executar todos os testes
+
+```bash
+docker compose exec app php artisan test
+```
+
+### Executar testes da API
+
+```bash
+docker compose exec app php artisan test --filter=ApiSyncTest
+```
+
+### O que e validado
+
+1. `POST /api/sincronizar/produtos`
+- status HTTP `200`
+- estrutura do payload de retorno
+- sincronizacao na tabela `produto_insercao`
+
+2. `POST /api/sincronizar/precos`
+- status HTTP `200`
+- estrutura do payload de retorno
+- sincronizacao na tabela `preco_insercao`
+
+3. `GET /api/produtos-precos`
+- resposta paginada com `per_page` e `page`
+- metadados de paginacao
+- quantidade de itens retornados por pagina
+
 ## Arquivo SQL de referencia
 
 O arquivo `script_tabelas_base.sql` na raiz contem o DDL das tabelas base de origem.
